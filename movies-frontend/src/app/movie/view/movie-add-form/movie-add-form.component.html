@@ -1,0 +1,63 @@
+<form class="container" #form="ngForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col-4 p-2">
+      <label for="movieUuid">Movie UUID:</label>
+      <input
+        id="movieUuid"
+        name="movieUuid"
+        [(ngModel)]="movieUUID"
+        placeholder="Enter movie UUID"
+        required
+      />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-4 p-2">
+      <label for="title">Title:</label>
+      <input
+        id="title"
+        name="title"
+        [(ngModel)]="movie.title"
+        required
+        placeholder="Enter movie title"
+      />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-4 p-2">
+      <label for="releaseYear">Release Year:</label>
+      <input
+        id="releaseYear"
+        name="releaseYear"
+        type="number"
+        [(ngModel)]="movie.releaseYear"
+        required
+        placeholder="Enter release year"
+      />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-4 p-2">
+      <label for="director">Director:</label>
+      <textarea
+        id="director"
+        name="director"
+        [(ngModel)]="movie.director"
+        required
+        placeholder="Enter director's name"
+      ></textarea>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-2 p-2">
+      <button type="submit" [disabled]="!form.valid">Submit</button>
+    </div>
+    <div class="col-2 p-2">
+      <button type="button" (click)="form.reset()">Reset</button>
+    </div>
+  </div>
+</form>

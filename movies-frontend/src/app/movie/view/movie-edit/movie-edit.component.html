@@ -1,0 +1,55 @@
+<article *ngIf="movie">
+  <header><h2>Edit movie</h2></header>
+
+  <form class="container"  #form="ngForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-4 p-2">
+        <div>
+          <label for="title">Title:</label>
+          <input id="title" name="title" [(ngModel)]="movie.title"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-4 p-2">
+        <div>
+          <label for="releaseYear">releaseYear:</label>
+          <input id="releaseYear" name="releaseYear" [(ngModel)]="movie.releaseYear"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-4 p-2">
+        <div>
+          <label for="director">Director:</label>
+          <textarea id="director" name="director" [(ngModel)]="movie.director"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-4 p-2">
+        <fieldset *ngIf="genres">
+          <legend>Genre:</legend>
+          <div *ngFor="let genre of genres.genres">
+            <label>
+              <input type="radio" name="genreId" [(ngModel)]="movie.genreId" [value]="genre.id"/>
+              {{genre.name}}
+            </label>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-2 p-2">
+        <button type="submit">Submit</button>
+      </div>
+      <div class="col-2 p-2">
+        <button type="button" (click)="form.resetForm(original)">Reset</button>
+      </div>
+    </div>
+  </form>
+</article>

@@ -1,0 +1,96 @@
+services:
+  frontend:
+    restart: always
+    build: ./movies-frontend
+    ports:
+      - "4200:80"
+    environment:
+      API_URL: "http://normal:8084/api"
+    depends_on:
+      - normal
+    networks:
+      - movies_network
+
+  normal: # 8084
+    restart: always
+    build: ./normal
+    ports:
+      - "8084:8084"
+    environment:
+      MOVIES_URL: "http://moviesmovieapplication:8081"
+      GENRES_URL: "http://moviesgenreapplication:8082"
+      GATEWAY_HOST: "normal:8084"
+    depends_on:
+      - moviesgenreapplication
+      - moviesmovieapplication
+    networks:
+      - movies_network
+
+  moviesgenreapplication: # 8082
+    restart: always
+    build: ./moviesGenreApplication
+    ports:
+      - "8082:8082"
+    environment:
+      MOVIES_URL: "http://moviesmovieapplication:8081"
+      GENRES_URL: "http://moviesgenreapplication:8082"
+      API_URL: "http://normal:8084"
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://genresdb:5432/genresdb"
+      SPRING_DATASOURCE_USERNAME: "postgres"
+      SPRING_DATASOURCE_PASSWORD: "postgres"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: "update"
+      SPRING_JPA_DATABASE_PLATFORM: "org.hibernate.dialect.PostgreSQLDialect"
+    networks:
+      - movies_network
+    depends_on:
+      - genresdb
+
+  moviesmovieapplication: # 8081
+    restart: always
+    build: ./moviesMovieApplication
+    ports:
+      - "8081:8081"
+    environment:
+      GENRES_URL: "http://moviesgenreapplication:8082"
+      MOVIES_URL: "http://moviesmovieapplication:8081"
+      API_URL: "http://normal:8084/api"
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://moviesdb:5432/moviesdb"
+      SPRING_DATASOURCE_USERNAME: "postgres"
+      SPRING_DATASOURCE_PASSWORD: "postgres"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: "update"
+      SPRING_JPA_DATABASE_PLATFORM: "org.hibernate.dialect.PostgreSQLDialect"
+    networks:
+      - movies_network
+    depends_on:
+      - moviesdb
+
+  genresdb:
+    image: postgres:15
+    container_name: genresdb
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: genresdb
+    ports:
+      - "5433:5432"
+    networks:
+      - movies_network
+
+  moviesdb:
+    image: postgres:15
+    container_name: moviesdb
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: moviesdb
+    ports:
+      - "5434:5432"
+    networks:
+      - movies_network
+
+networks:
+  movies_network:
+    name: movies_network
+    driver: bridge

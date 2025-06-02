@@ -1,0 +1,27 @@
+### Update genre - Drama
+PATCH http://localhost:8082/api/genres/91124165-92b8-46a1-8097-84d1c021641d
+Content-Type: application/json
+
+{
+  "name": "Drama - zmieniony gatunek"
+}
+
+### Get all genres
+GET http://localhost:8082/api/genres
+
+### Get single genre - Drama
+GET http://localhost:8082/api/genres/91124165-92b8-46a1-8097-84d1c021641d
+
+### Get genre that doesn't exist
+GET http://localhost:8082/api/genres/11111111-2222-3333-4444-123123123123
+
+### Create genre
+PUT http://localhost:8082/api/genres/514046b4-3f8e-409c-a51f-b99e29c1406c
+Content-Type: application/json
+
+{
+    "name": "Nowy gatunek"
+}
+
+### Delete genre - Horror
+DELETE http://localhost:8082/api/genres/681a88be-79f8-472f-98cf-30c2e83175a6

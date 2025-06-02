@@ -1,0 +1,23 @@
+<article class="text--justified">
+  <header><h2>Genres</h2></header>
+
+  <table *ngIf="genres">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>View</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let genre of genres">
+        <td>{{ genre.name }}</td>
+        <a [routerLink]="['/genres', genre.id]">View</a>
+        <a [routerLink]="['/genres', genre.id, 'edit']">Edit</a>
+        <td><a (click)="onDelete(genre)">Delete</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <app-genre-add-form (genreAdded)="refreshGenres()"></app-genre-add-form>
+</article>

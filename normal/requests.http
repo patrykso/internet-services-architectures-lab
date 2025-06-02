@@ -1,0 +1,69 @@
+### Get all movies
+GET http://localhost:8084/api/movies
+
+### Get Matrix movie
+GET http://localhost:8084/api/movies/74d7ec09-fb1c-4a04-8e49-ceb0d242fba6
+
+### Get movie that doesn't exist
+GET http://localhost:8084/api/movies/11111111-2222-3333-4444-123123123123
+
+### Create new movie (wrong)
+PUT http://localhost:8084/api/movies/5141234-3f8e-409c-a51f-b99e29c1406c
+Content-Type: application/json
+
+{
+  "title": "Nowy Film",
+  "director": "Test",
+  "genreId": "91124165-92b8-46a1-8097-84d1c021641d",
+  "releaseYear": 2018
+}
+
+### Delete movie - Fight Club
+DELETE http://localhost:8084/api/movies/04443f61-1f6e-4447-a81d-9d91b3069a00
+
+### Update movie - Fight Club
+#TODO tofix
+PATCH http://localhost:8084/api/movies/74d7ec09-fb1c-4a04-8e49-ceb0d242fba6
+Content-Type: application/json
+
+{
+  "title": "Fight Club - zmieniony tytuł",
+  "director": "David Fincher"
+}
+
+### Update genre - Drama
+PATCH http://localhost:8084/api/genres/91124165-92b8-46a1-8097-84d1c021641d
+Content-Type: application/json
+
+{
+  "name": "Drama - zmieniony gatunek"
+}
+
+### Get all genres
+GET http://localhost:8084/api/genres
+
+### Get single genre - Drama
+GET http://localhost:8084/api/genres/91124165-92b8-46a1-8097-84d1c021641d
+
+### Get genre that doesn't exist
+GET http://localhost:8084/api/genres/11111111-2222-3333-4444-123123123123
+
+### Create genre
+PUT http://localhost:8084/api/genres/514046b4-3f8e-409c-a51f-b99e29c1406c
+Content-Type: application/json
+
+{
+  "name": "Nowy gatunek"
+}
+
+### Delete genre - Horror
+DELETE http://localhost:8084/api/genres/681a88be-79f8-472f-98cf-30c2e83175a6
+
+### Get movies in genre - Drama
+GET http://localhost:8084/api/genres/91124165-92b8-46a1-8097-84d1c021641d/movies
+
+### Get movies in genre - Horror
+GET http://localhost:8084/api/genres/681a88be-79f8-472f-98cf-30c2e83175a6/movies
+
+### Get movies in genre - genre doesn't exist
+GET http://localhost:8084/api/genres/91124165-1111-1111-1111-84d1c021641d/movies
